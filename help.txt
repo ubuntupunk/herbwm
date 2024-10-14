@@ -1,0 +1,79 @@
+Getting started with herbstluftwm (hlwm)
+
+1. Read the manual.
+
+2. Default settings:
+
+Mod=mod4
+mod4 key = windows key
+
+Mod-Shift-q - This will take you to the login screen.
+Mod-Shift-b - Reboot
+
+Mod-Return - Terminal
+Mod-d - dmenu
+Mod-o - splits the screen horizontally
+Mod-u - splits the screen vertically
+
+Full list of pre-set keybinds
+
+Mod+Shift+q	 quit
+Mod+Shift+r	reload
+Mod+Shift+c close
+Mod+Shift+b spawn sudo persist-config --shutdown --command reboot
+Mod-Shift-b spawn sudo reboot
+Mod-Shift-t spawn sudo halt
+
+# basic movement in tiling and floating mode
+# focusing clients
+Mod-Left  focus left
+Mod-Down  focus down
+Mod-Up    focus up
+Mod-Right focus right
+Mod-h     focus left
+Mod-j     focus down
+Mod-k     focus up
+Mod-l     focus right
+
+# moving clients in tiling and floating mode
+Mod-Shift-Left  shift left
+Mod-Shift-Down  shift down
+Mod-Shift-Up    shift up
+Mod-Shift-Right shift right
+Mod-Shift-h     shift left
+Mod-Shift-j     shift down
+Mod-Shift-k     shift up
+Mod-Shift-l     shift right
+
+# splitting frames
+# create an empty frame at the specified direction
+Mod-u       split   bottom  0.5
+Mod-o       split   right   0.5
+# let the current frame explode into subframes
+Mod-Control-space split explode
+
+# resizing frames and floating clients
+resizestep=0.02
+Mod-Control-h       resize left +$resizestep
+Mod-Control-j       resize down +$resizestep
+Mod-Control-k       resize up +$resizestep
+Mod-Control-l       resize right +$resizestep
+Mod-Control-Left    resize left +$resizestep
+Mod-Control-Down    resize down +$resizestep
+Mod-Control-Up      resize up +$resizestep
+Mod-Control-Right   resize right +$resizestep
+
+# Open apps
+Mod-Return spawn roxterm
+Mod-d spawn dmenu_run 
+Mod-n spawn firefox-esr
+
+# screenshots
+Mod-F12 spawn scrot -t 20 -d 2 ~/%Y-%m-%d-%T-screenshot.png
+
+# Media volume
+hc keybind XF86AudioRaiseVolume spawn ~/.config/herbstluftwm/scripts/volume.sh up 
+hc keybind XF86AudioLowerVolume spawn  ~/.config/herbstluftwm/scripts/volume.sh down
+hc keybind XF86AudioMute spawn ~/.config/herbstluftwm/scripts/volume.sh mute
+
+3. Enjoy!

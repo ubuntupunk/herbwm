@@ -1,0 +1,17 @@
+out_to_console yes
+background no
+update_interval 2
+total_run_times 0
+use_spacer none
+short_units yes
+
+TEXT
+^fg(\#635365)^i($HOME/.config/herbstluftwm/xbmicons/cpu.xbm) ^ca(1,rxvt -e top -u ${exec whoami})^fg(\#885d50)${cpu cpu1}% ${cpu cpu2}%^ca() #/
+^fg(\#635365)^i($HOME/.config/herbstluftwm/xbmicons/mem.xbm) ^fg(\#885d50)${memperc}% #/
+^fg(\#783e57)| #/
+^fg(\#635365)^i($HOME/.config/herbstluftwm/xbmicons/spkr_01.xbm)^ca(1,rxvt -e alsamixer -g) ^fg(\#885d50)${exec amixer get Master -M | grep -oE "[[:digit:]]*%"}^ca()   #/
+^fg(\#783e57)^i($HOME/.config/herbstluftwm/xbmicons/arr.xbm)^bg(\#783e57)^ca(1,rxvt)^fg(\#2A282F)Term^ca()#/
+^fg(\#4F5E87)^i($HOME/.config/herbstluftwm/xbmicons/arr.xbm)^bg(\#4F5E87)^ca(1,$HOME/.config/palemoon/palemoon)^fg(\#2A282F)Web^ca()#/
+^fg(\#87784F)^i($HOME/.config/herbstluftwm/xbmicons/arr.xbm)^bg(\#87784F)^ca(1,spacefm)^fg(\#2A282F)Files^ca()#/
+^fg(\#885d50)^i($HOME/.config/herbstluftwm/xbmicons/arr.xbm)^bg(\#885d50)^ca(1,$HOME/.dbeef/deadbeef)^fg(\#2A282F)Audio^ca()^fg(\#2a2437)^i($HOME/.config/herbstluftwm/xbmicons/arr.xbm)^ca()^bg(\#2a2437)#/
+^fg(\#885d50)${exec whoami}^fg(\#635365)@^fg(\#885d50)$nodename  #/
