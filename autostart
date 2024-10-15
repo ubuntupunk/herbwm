@@ -21,11 +21,28 @@ hc set frame_gap 8
 #hc attr theme.border_width 8
 #hc set window_gap 10
 
+
+xset +fp /home/davdev/.local/share/fonts
+xset fp rehash
+
 #---------+
 #Variables|
 #---------+
 
 ORANGE='#FB8C00'
+PURPLE='#9C27B0'
+BLUE='#00BCD4'
+GREEN='#4CAF50'
+RED='#F44336'
+YELLOW='#FFEB3B'
+WHITE='#FFFFFF'
+BLACK='#000000'
+EMERALD='#00FF00'
+MAGENTA='#FF00FF'
+CYAN='#00FFFF'
+TURQUOISE='#00CED1'
+#----------+
+
 
 myFancyTerm="alacritty" # the terminal for work
 myTabbedTerm="tabbed alacritty --embed"
@@ -147,6 +164,14 @@ hc keybind $Alt-o split right 0.5
 # let the current frame explode into subframes
 hc keybind $Alt-Control-space split explode
 
+# create an empty frame at the specified direction and move to it
+hc keybind $Mod-u chain \
+    , split   bottom   0.5 \
+    , focus down
+hc keybind $Mod-o chain \
+    , split   right   0.5 \
+    , focus right
+
 # resizing frames
 resizestep=0.05
 hc keybind $Alt-Control-h resize left +$resizestep
@@ -160,7 +185,14 @@ hc keybind $Alt-Control-Right resize right +$resizestep
 
 hc keybind $Al-Shift-space floating toggle
 
-# tags
+# tags# setting default frame layout to max
+hc set default_frame_layout max
+
+hc substitute ALGO settings.default_frame_layout \
+    foreach T tags.by-name. \
+    sprintf ATTR '%c.tiling.root.algorithm' T \
+    set_attr ATTR ALGO
+
 tag_names=("dev" "www" "chat" "doc" "obs" "mus" "vid" "gfx" "gpt" "sys")
 #tag_names=( "Helado", "Dulce", "Pastel", "Azucar", "Chocolate", "Cafe" )
 tag_keys=({1..9} 0)
@@ -192,6 +224,7 @@ hc keybind $Alt-space \
   . cycle_layout +1 vertical horizontal max grid \
   , cycle_layout +1
 
+
 # mouse
 hc mouseunbind --all
 hc mousebind $Alt-Button1 move
@@ -209,6 +242,8 @@ hc keybind $Alt-i jumpto urgent
 hc keybind XF86AudioRaiseVolume spawn amixer set Master 5+
 hc keybind XF86AudioLowerVolume spawn amixer set Master 5-
 hc keybind XF86AudioMute spawn amixer set Master toggle
+hc keybind Shift-Up spawn amixer set Master 1+
+hc keybind Shift-Down spawn amixer set Master 1-
 
 ## Music controls
 hc keybind XF86AudioNext spawn mpc next
@@ -216,19 +251,21 @@ hc keybind XF86AudioPrev spawn mpc prev
 hc keybind XF86AudioPlay spawn mpc toggle
 hc keybind XF86AudioStop spawn mpc stop
 
-# Media
-hc keybind XF86AudioRaiseVolume spawn amixer set Master 5+
-hc keybind XF86AudioLowerVolume spawn amixer set Master 5-
-hc keybind XF86AudioMute spawn amixer set Master toggle
-hc keybind Shift-Up spawn amixer set Master 1+
-hc keybind Shift-Down spawn amixer set Master 1-
+# Brightness
+hc keybind XF86MonBrightnessUp spawn brightnessctl set +5%
+hc keybind XF86MonBrightnessDown spawn brightnessctl set 5%-
+
+# Applications
+hc keybind $Mod-b spawn firefox
+hc keybind $Mod-e spawn emacs
+hc keybind $Alt-F2 spawn gnome-calculator
 
 #EXPERIMENTS
 #hc keybind XF86AudioPlay spawn mpc toggle
 hc keybind XF86AudioNext spawn mpc next
 #hc keybind XF86AudioPlay spawn mpc toggle #strawberry -t; sh $HOME/dotfiles/musictoggle.sh -u strawberry
 hc keybind XF86AudioPause spawn mpc toggle #strawberry -t
-hc keybind XF86Tools spawn rofi ~/.config//rofi/powermenu.rasi
+hc keybind XF86Tools spawn rofi ~/.config/rofi/powermenu.rasi
 
 # THEME #
 #-------#
@@ -239,8 +276,8 @@ hc attr theme.floating.reset 1
 hc set frame_border_active_color '#222222'
 hc set frame_border_normal_color '#101010'
 hc set frame_bg_normal_color '#565656'
-hc set frame_bg_active_color $ORANGE
-hc set frame_border_width 1
+hc set frame_bg_active_color  
+hc set frame_border_width 1 $PURPLE
 hc set always_show_frame 1
 hc set frame_bg_transparent 1
 hc set frame_transparent_width 4
@@ -248,7 +285,7 @@ hc set frame_gap 0
 hc set frame_active_opactiy 1
 hc set frame_normal_opacity 0
 
-hc attr theme.active.color $ORANGE
+hc attr theme.active.color $PURPLE
 hc attr theme.normal.color '#454545'
 hc attr theme.urgent.color red
 hc attr theme.inner_width 0
@@ -279,6 +316,7 @@ hc set smart_frame_surroundings  g 0
 #hc set focus_follows_mouse 1
 hc set smart_frame_surroundings 0
 hc rule focus=on # normally focus new clients
+
 # this enables my monitor swapping
 hc set swap_monitors_to_get_tag 0
 #hc rule focus=off # normally do not focus new clients [get class with xprop]
@@ -292,6 +330,14 @@ hc set tree_style '╾│ ├└╼─┐'
 
 #Dev Rules
 hc rule class=VSCodium tag=dev focus=on
+hc rule class=Emacs tag=dev
+hc rule class=Code tag=dev
+hc rule class=Code-OSS tag=dev
+hc rule class=Code-Insiders tag=dev
+hc rule class=Code-OSS-Dev tag=dev
+hc rule class=Code-OSS-Dev-Insiders tag=dev
+hc rule class=Code-Insiders-Dev tag=dev
+hc rule class=vscodium tag=dev
 hc rule class=Alacritty tag=dev
 
 #Browser Rules
@@ -309,6 +355,8 @@ hc rule class='Thunar' tag=doc focus=on
 #Second Brain
 hc rule class='obsidian' tag=obs focus=on
 hc rule class='jan' tag=gpt focus=on 
+hc rule class='gpt' tag=gpt focus=on
+hc rule class='Jan' tag=gpt focus=on
 hc rule class='chat-gpt' tag=gpt focus=on
 
 #Music
@@ -376,3 +424,9 @@ volumeicon &
 nm-applet &
 whatsdesk &
 obsidian &
+firefox &
+sleep 6 &
+vscodium &
+sleep 10 & # Increased delay
+jan &
+sleep 2 # Added delay
