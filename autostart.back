@@ -66,12 +66,10 @@ picom "$HOME/.config/picom/picom/conf" &
 pkill dunst &
 dunst
 
-#start redshift
-hc spawn pkill '^redshift$' && sleep 10s && redshift-gtk -P &
+#hc spawn pkill '^redshift$' && sleep 10s && redshift-gtk -P &
 
-#set the wallpaper
 #hc spawn feh --bg-scale Downloads/mike-yukhtenko-wfh8dDlNFOk-unsplash.jpg
-hc spawn feh --bg-scale Pictures/wallpapers/default.png
+hc spawn feh --bg-scale Pictures/Wallpaper/wallpaper.jpeg
 #hc spawn nitrogen --restore &
 
 #-------------+
@@ -331,13 +329,10 @@ hc pad 0 0 0 0 0
 # FIND THE PANEL |
 #----------------+
 
-panel=~/.config/herbstluftwm/polypanel.sh
+panel=~/.config/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(hc list_monitors | cut -d: -f1); do
   #    # start it on each monitor
   "$panel" $monitor &
 done
 #hc split vertical 0.6; hc remove
-
-#launching polybar
-#~/.config/herbstluftwm/launch.sh
