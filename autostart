@@ -341,3 +341,7 @@ done
 
 #launching polybar
 #~/.config/herbstluftwm/launch.sh
+
+pipewire &
+#volumeicon &
+nm-applet &
