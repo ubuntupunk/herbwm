@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-# ____              ____             
+# ____              ____
 #|  _ \  __ ___   _|  _ \  _____   __
 #| | | |/ _` \ \ / / | | |/ _ \ \ / /
-#| |_| | (_| |\ V /| |_| |  __/\ V / 
-#|____/ \__,_| \_/ |____/ \___| \_/ 
+#| |_| | (_| |\ V /| |_| |  __/\ V /
+#|____/ \__,_| \_/ |____/ \___| \_/
 #
-# A customized configuration for herbstluftwm on LENOVA SL500 
-# (http://www.herbstluftwm.org)     
+# A customized configuration for herbstluftwm on MSI Z270 A PRO
+# (http://www.herbstluftwm.org)
 # Modified by DavDev (http://github.com/ubuntupunk )
 
 hc() {
-    herbstclient "$@"
+  herbstclient "$@"
 }
 
 hc emit_hook reload
@@ -32,26 +32,24 @@ myTabbedTerm="tabbed alacritty --embed"
 myAppTerm="st -e" # the terminal for running a program inside a terminal
 Term="sakura"
 
-batticon(){
-    batt="$(pidof cbatticon)"
-    if [[ "$batt" -lt 1 ]];
-    then 
-        cbatticon -i notification /sys/class/power_supply/BAT0 &
-    else
-        pkill cbatticon;
-        cbatticon -i notification /sys/class/power_supply/BAT0 &
-    fi
+batticon() {
+  batt="$(pidof cbatticon)"
+  if [[ "$batt" -lt 1 ]]; then
+    cbatticon -i notification /sys/class/power_supply/BAT0 &
+  else
+    pkill cbatticon
+    cbatticon -i notification /sys/class/power_supply/BAT0 &
+  fi
 }
 
-volicon(){
-    vol="$(pidof volumeicon)"
-    if [[ "$vol" -lt 1 ]];
-    then 
-        volumeicon &
-    else
-        pkill volumeicon;
-        volumeicon &
-    fi
+volicon() {
+  vol="$(pidof volumeicon)"
+  if [[ "$vol" -lt 1 ]]; then
+    volumeicon &
+  else
+    pkill volumeicon
+    volumeicon &
+  fi
 }
 
 #----------+
@@ -59,20 +57,19 @@ volicon(){
 #----------+
 
 #picom, jonaburg fork
-picom  $HOME/.config/picom/picom/conf &
+picom "$HOME/.config/picom/picom/conf" &
 
 /usr/bin/gnome-keyring-daemon --start --components=secrets &
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
-
 pkill dunst &
-dunst 
+dunst
 
 #hc spawn pkill '^redshift$' && sleep 10s && redshift-gtk -P &
 
 #hc spawn feh --bg-scale Downloads/mike-yukhtenko-wfh8dDlNFOk-unsplash.jpg
-hc spawn feh --bg-scale Pictures/Wallpaper/wallpaper.jpeg
+hc spawn feh --bg-scale Pictures/wallpapers/default.png
 #hc spawn nitrogen --restore &
 
 #-------------+
@@ -85,8 +82,8 @@ hc keyunbind --all
 #TODO . "$HOME"/.config/herbstluftwm/keys
 
 # if you have a super key you will be much happier with Mod set to Mod4
-Alt=Mod1    # Use alt as the main modifier
-Super=Mod4   # Use the super key as the main modifier
+Alt=Mod1   # Use alt as the main modifier
+Super=Mod4 # Use the super key as the main modifier
 
 hc spawn xset s off
 hc spawn xset -dpms
@@ -118,14 +115,14 @@ hc keybind $Alt-Shift-b pad 0 0 0 0 0
 
 # basic movement
 # focusing clients
-hc keybind $Alt-Left  focus left
-hc keybind $Alt-Down  focus down
-hc keybind $Alt-Up    focus up
+hc keybind $Alt-Left focus left
+hc keybind $Alt-Down focus down
+hc keybind $Alt-Up focus up
 hc keybind $Alt-Right focus right
-hc keybind $Alt-h     focus left
-hc keybind $Alt-j     focus down
-hc keybind $Alt-k     focus up
-hc keybind $Alt-l     focus right
+hc keybind $Alt-h focus left
+hc keybind $Alt-j focus down
+hc keybind $Alt-k focus up
+hc keybind $Alt-l focus right
 
 # moving clients
 #hc keybind $Alt-Shift-Left or / shift left / \
@@ -136,49 +133,49 @@ hc keybind $Alt-l     focus right
 #    chain , lock , shift_to_monitor -u , focus_monitor -u , unlock
 #hc keybind $Alt-Shift-Right or / shift right / \
 #    chain , lock , shift_to_monitor -r , focus_monitor -r , unlock
-hc keybind $Alt-Shift-h     shift left
-hc keybind $Alt-Shift-j     shift down
-hc keybind $Alt-Shift-k     shift up
-hc keybind $Alt-Shift-l     shift right
+hc keybind $Alt-Shift-h shift left
+hc keybind $Alt-Shift-j shift down
+hc keybind $Alt-Shift-k shift up
+hc keybind $Alt-Shift-l shift right
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Alt-u       split   bottom  0.5
-hc keybind $Alt-o       split   right   0.5
+hc keybind $Alt-u split bottom 0.5
+hc keybind $Alt-o split right 0.5
 # let the current frame explode into subframes
 hc keybind $Alt-Control-space split explode
 
 # resizing frames
 resizestep=0.05
-hc keybind $Alt-Control-h       resize left +$resizestep
-hc keybind $Alt-Control-j       resize down +$resizestep
-hc keybind $Alt-Control-k       resize up +$resizestep
-hc keybind $Alt-Control-l       resize right +$resizestep
-hc keybind $Alt-Control-Left    resize left +$resizestep
-hc keybind $Alt-Control-Down    resize down +$resizestep
-hc keybind $Alt-Control-Up      resize up +$resizestep
-hc keybind $Alt-Control-Right   resize right +$resizestep
+hc keybind $Alt-Control-h resize left +$resizestep
+hc keybind $Alt-Control-j resize down +$resizestep
+hc keybind $Alt-Control-k resize up +$resizestep
+hc keybind $Alt-Control-l resize right +$resizestep
+hc keybind $Alt-Control-Left resize left +$resizestep
+hc keybind $Alt-Control-Down resize down +$resizestep
+hc keybind $Alt-Control-Up resize up +$resizestep
+hc keybind $Alt-Control-Right resize right +$resizestep
 
 hc keybind $Al-Shift-space floating toggle
 
 # tags
-tag_names=("dev" "www" "sys" "doc" "vbox" "chat" "mus" "vid" "gfx")
+tag_names=("dev" "www" "chat" "doc" "obs" "mus" "vid" "gfx" "jan" "sys")
 #tag_names=( "Helado", "Dulce", "Pastel", "Azucar", "Chocolate", "Cafe" )
-tag_keys=( {1..9} 0 )
+tag_keys=({1..9} 0)
 
 hc rename default "${tag_names[0]}" || true
-for i in ${!tag_names[@]} ; do
-    hc add "${tag_names[$i]}"
-    key="${tag_keys[$i]}"
-    if ! [ -z "$key" ] ; then
-        hc keybind "$Alt-$key" use_index "$i"
-        hc keybind "$Alt-Shift-$key" move_index "$i"
-    fi
+for i in "${!tag_names[@]}"; do
+  hc add "${tag_names[$i]}"
+  key="${tag_keys[$i]}"
+  if ! [ -z "$key" ]; then
+    hc keybind "$Alt-$key" use_index "$i"
+    hc keybind "$Alt-Shift-$key" move_index "$i"
+  fi
 done
 
 # cycle through tags
 hc keybind $Alt-period use_index +1 --skip-visible
-hc keybind $Alt-comma  use_index -1 --skip-visible
+hc keybind $Alt-comma use_index -1 --skip-visible
 
 # layouting
 hc keybind $Alt-r remove
@@ -188,10 +185,10 @@ hc keybind $Alt-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-hc keybind $Alt-space                                                           \
-            or , and . compare tags.focus.curframe_wcount = 2                   \
-                     . cycle_layout +1 vertical horizontal max grid    \
-               , cycle_layout +1
+hc keybind $Alt-space \
+  or , and . compare tags.focus.curframe_wcount = 2 \
+  . cycle_layout +1 vertical horizontal max grid \
+  , cycle_layout +1
 
 # mouse
 hc mouseunbind --all
@@ -200,9 +197,9 @@ hc mousebind $Alt-Button2 resize
 hc mousebind $Alt-Button3 zoom
 
 # focus
-hc keybind $Alt-BackSpace   cycle_monitor
-hc keybind $Alt-Tab         cycle_all +1
-hc keybind $Alt-Shift-Tab   cycle_all -1
+hc keybind $Alt-BackSpace cycle_monitor
+hc keybind $Alt-Tab cycle_all +1
+hc keybind $Alt-Shift-Tab cycle_all -1
 hc keybind $Alt-c cycle
 hc keybind $Alt-i jumpto urgent
 
@@ -269,7 +266,6 @@ hc set smart_frame_surroundings 0
 hc set mouse_recenter_gap 0
 hc set focus_follows_mouse 1
 
-
 # RULES #
 #-------#
 #TODO . "$HOME"/.config/herbstluftwm/winRules
@@ -335,9 +331,8 @@ hc pad 0 0 0 0 0
 
 panel=~/.config/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(hc list_monitors | cut -d: -f1) ; do
-#    # start it on each monitor
-    "$panel" $monitor &
+for monitor in $(hc list_monitors | cut -d: -f1); do
+  #    # start it on each monitor
+  "$panel" $monitor &
 done
 #hc split vertical 0.6; hc remove
-
