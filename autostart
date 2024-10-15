@@ -161,7 +161,7 @@ hc keybind $Alt-Control-Right resize right +$resizestep
 hc keybind $Al-Shift-space floating toggle
 
 # tags
-tag_names=("dev" "www" "chat" "doc" "obs" "mus" "vid" "gfx" "jan" "sys")
+tag_names=("dev" "www" "chat" "doc" "obs" "mus" "vid" "gfx" "gpt" "sys")
 #tag_names=( "Helado", "Dulce", "Pastel", "Azucar", "Chocolate", "Cafe" )
 tag_keys=({1..9} 0)
 
@@ -275,7 +275,7 @@ hc set focus_follows_mouse 1
 hc unrule -F
 #hc rule class=XTerm tag=3 # move all xterms to tag 3
 
-hc set smart_frame_surroundings 0
+hc set smart_frame_surroundings  g 0
 #hc set focus_follows_mouse 1
 hc set smart_frame_surroundings 0
 hc rule focus=on # normally focus new clients
@@ -289,6 +289,35 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 hc rule --title="Slack | mini panel" --floating=on --manage=off
 
 hc set tree_style '╾│ ├└╼─┐'
+
+#Dev Rules
+hc rule class=VSCodium tag=dev focus=on
+hc rule class=Alacritty tag=dev
+
+#Browser Rules
+hc rule class='firefox' tag=www focus=on
+hc rule class='chromium' tag=www focus=on
+hc rule class='edge' tag=www focus=on
+
+#Chat
+hc rule class=whatsdesk tag=chat focus=on
+
+#File Managers
+hc rule class='pcmanfm' tag=doc focus=on
+hc rule class='Thunar' tag=doc focus=on 
+
+#Second Brain
+hc rule class='obsidian' tag=obs focus=on
+hc rule class='jan' tag=gpt focus=on 
+hc rule class='chat-gpt' tag=gpt focus=on
+
+#Music
+hc rule class='strawberry' tag=mus focus=on
+hc rule class='spotify' tag=mus focus=on
+hc rule class='spotifyd' tag=mus focus=on
+hc rule class='spotify-qt' tag=mus focus=on
+hc rule class='spotify-tui' tag=mus focus=on
+hc rule class='spotify-tui-rs' tag=mus focus=on
 
 # unlock, just to be sure
 hc unlock
@@ -343,5 +372,7 @@ done
 #~/.config/herbstluftwm/launch.sh
 
 pipewire &
-#volumeicon &
+volumeicon &
 nm-applet &
+whatsdesk &
+obsidian &
